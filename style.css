@@ -1,0 +1,475 @@
+@font-face {
+  font-family: "OpenDyslexicCustom";
+  src: url("assets/fonts/OpenDyslexic-Regular.woff2") format("woff2"),
+       url("assets/fonts/OpenDyslexic-Regular.woff") format("woff");
+  font-display: swap;
+}
+
+:root {
+  --bg-color: #F0F4F8;
+  --text-color: #1E2A38;
+  --accent-color: #1266F1;
+  --target-bg: #ffffff;
+  --target-text: #1266F1;
+  --success-color: #1E8E3E;
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  --button-bg: #1266F1;
+  --button-text: #ffffff;
+  --muted-text: #5F6F7C;
+  --balloon-1: #E57373;
+  --balloon-2: #64B5F6;
+  --balloon-3: #81C784;
+  --balloon-4: #FFD54F;
+  --balloon-5: #4DB6AC;
+  --balloon-text: #1E2A38;
+  --confetti-color: #FFB74D;
+  --progress-bg: #E0E0E0;
+  --font-size-base: 18px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "OpenDyslexicCustom", Arial, sans-serif;
+  font-size: var(--font-size-base);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+body.theme-daltonist {
+  --bg-color: #F5F1DF;
+  --text-color: #173F5F;
+  --accent-color: #ED6A5A;
+  --target-bg: #ffffff;
+  --target-text: #ED6A5A;
+  --success-color: #3CAEA3;
+  --panel-bg: rgba(250, 245, 232, 0.98);
+  --button-bg: #ED6A5A;
+  --button-text: #ffffff;
+  --muted-text: #4A6A7C;
+  --balloon-1: #377EB8;
+  --balloon-2: #4DAF4A;
+  --balloon-3: #984EA3;
+  --balloon-4: #FF7F00;
+  --balloon-5: #A65628;
+  --balloon-text: #FFFFFF;
+  --confetti-color: #FFBE7D;
+  --progress-bg: #E8E0C8;
+}
+
+body.theme-highcontrast {
+  --bg-color: #000000;
+  --text-color: #FFFFFF;
+  --accent-color: #FFD700;
+  --target-bg: #000000;
+  --target-text: #FFD700;
+  --success-color: #00FF00;
+  --panel-bg: rgba(20, 20, 20, 0.98);
+  --button-bg: #FFFFFF;
+  --button-text: #000000;
+  --muted-text: rgba(255, 255, 255, 0.65);
+  --balloon-1: #FFFF00;
+  --balloon-2: #00FFFF;
+  --balloon-3: #FF00FF;
+  --balloon-4: #FFA500;
+  --balloon-5: #00FF00;
+  --balloon-text: #000000;
+  --confetti-color: #FFFF00;
+  --progress-bg: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-bw {
+  --bg-color: #000000;
+  --text-color: #FFFFFF;
+  --accent-color: #FFFFFF;
+  --target-bg: #000000;
+  --target-text: #FFFFFF;
+  --success-color: #FFFFFF;
+  --panel-bg: rgba(20, 20, 20, 0.98);
+  --button-bg: #FFFFFF;
+  --button-text: #000000;
+  --muted-text: #AAAAAA;
+  --balloon-1: #FFFFFF;
+  --balloon-2: #E5E5E5;
+  --balloon-3: #CCCCCC;
+  --balloon-4: #AAAAAA;
+  --balloon-5: #888888;
+  --balloon-text: #000000;
+  --confetti-color: #FFFFFF;
+  --progress-bg: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-highcontrast .balloon,
+body.theme-bw .balloon {
+  color: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+select {
+  font-family: inherit;
+}
+
+body,
+html {
+  min-height: 100%;
+}
+
+#ui-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+  background: var(--panel-bg);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+#ui-header {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.ui-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+}
+
+#target-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#target-letter {
+  font-size: 3rem;
+  color: var(--target-text);
+  background: var(--target-bg);
+  padding: 15px;
+  border-radius: 12px;
+  border: 3px solid var(--accent-color);
+  width: 90px;
+  display: inline-block;
+  text-align: center;
+}
+
+#progress-container {
+  width: 100%;
+  height: 12px;
+  background-color: var(--progress-bg);
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--success-color);
+  transition: width 0.4s ease-out;
+}
+
+#round-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--success-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 50;
+  text-shadow: 2px 2px 0 #FFF, -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF;
+  text-align: center;
+}
+
+#game-area {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 20px;
+  padding-top: 130px;
+  box-sizing: border-box;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.balloon {
+  position: relative;
+  width: 100px;
+  height: 120px;
+  background-color: white;
+  color: var(--balloon-text);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.1s;
+}
+
+
+.color-1 { background-color: var(--balloon-1); }
+.color-2 { background-color: var(--balloon-2); }
+.color-3 { background-color: var(--balloon-3); }
+.color-4 { background-color: var(--balloon-4); }
+.color-5 { background-color: var(--balloon-5); }
+
+@keyframes pop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.popped { animation: pop 0.3s forwards; pointer-events: none; }
+.wrong { animation: shake 0.3s forwards; border: 5px solid var(--accent-color); }
+
+.confetti-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--confetti-color);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 1;
+  z-index: 40;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
+}
+
+#start-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+  text-align: center;
+}
+
+#start-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.start-text {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.start-subtext {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--muted-text);
+}
+
+.difficulty-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  width: 80%;
+  max-width: 300px;
+}
+
+.start-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  width: 80%;
+  max-width: 300px;
+}
+
+.start-actions .btn {
+  flex: 1;
+}
+
+.btn {
+  font-size: 1.5rem;
+  padding: 15px 20px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  transition: all 0.1s;
+}
+
+.btn.medium { background: #FF9800; color: #ffffff; box-shadow: 0 4px 0 #F57C00; }
+.btn.hard { background: #F44336; color: #ffffff; box-shadow: 0 4px 0 #D32F2F; }
+.btn.secondary { background: #2196F3; color: #ffffff; box-shadow: 0 4px 0 #1976D2; }
+
+body.theme-highcontrast .btn.medium,
+body.theme-bw .btn.medium { background: var(--button-bg); color: var(--button-text); box-shadow: 0 4px 0 rgba(255,255,255,0.3); }
+body.theme-highcontrast .btn.hard,
+body.theme-bw .btn.hard { background: var(--button-bg); color: var(--button-text); box-shadow: 0 4px 0 rgba(255,255,255,0.3); }
+body.theme-highcontrast .btn.secondary,
+body.theme-bw .btn.secondary { background: var(--button-bg); color: var(--button-text); box-shadow: 0 4px 0 rgba(255,255,255,0.3); }
+
+.btn:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.settings-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 150;
+}
+
+.settings-screen.hidden {
+  display: none;
+}
+
+.settings-panel {
+  width: min(420px, 95%);
+  background: var(--panel-bg);
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  text-align: left;
+}
+
+.settings-row {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.settings-row label {
+  font-weight: 700;
+}
+
+.settings-row select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--accent-color);
+  background: var(--target-bg);
+  color: var(--text-color);
+}
+
+.settings-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.settings-icon {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  background: var(--panel-bg);
+  width: 44px;
+  height: 44px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+body.theme-highcontrast .settings-icon,
+body.theme-bw .settings-icon {
+  border-color: var(--accent-color);
+}
+
+.settings-icon:hover {
+  transform: translateY(-1px);
+}
+
+.ui-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.help-list {
+  padding-left: 20px;
+  line-height: 1.9;
+  margin: 12px 0;
+}
+
+.help-list li {
+  margin-bottom: 6px;
+}
+
+.help-note {
+  font-size: 0.9rem;
+  color: var(--muted-text);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  #ui-header {
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    gap: 4px;
+    font-size: 1.3rem;
+  }
+
+  #target-container {
+    order: 1;
+    flex: 1 1 auto;
+  }
+
+  .ui-actions {
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  .ui-stats {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    font-size: 1.1rem;
+    padding-bottom: 2px;
+  }
+
+  #target-letter { font-size: 2.2rem; padding: 10px; width: 80px; }
+  #game-area { padding-top: 115px; }
+  .balloon { width: 80px; height: 96px; font-size: 2.4rem; }
+  #start-screen h1 { font-size: 2.4rem; }
+  .start-text { font-size: 1.6rem; }
+  .btn { font-size: 1.2rem; padding: 14px 16px; }
+}

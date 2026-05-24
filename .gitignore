@@ -1,0 +1,13 @@
+# Dokumentacija
+dokumentacija.md
+korisnicke_upute.md
+napomena.txt
+ppelesk_dokumentacija_draft.pdf
+*.drawio
+*.png
+
+# Claude Code
+.claude/
+
+# macOS
+.DS_Store

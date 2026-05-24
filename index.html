@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pukni Balon - ADHD & Disleksija Edukacija</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1>🎈 Pukni Balon!</h1>
+        <p class="start-text">Skupljeno: ⭐ <span id="total-stars-display">0</span></p>
+        <p class="start-subtext">Odaberi težinu:</p>
+        <div class="difficulty-buttons">
+            <button class="btn" onclick="startGame('easy')">LAKO (A-Z)</button>
+            <button class="btn medium" onclick="startGame('medium')">SREDNJE (a-z)</button>
+            <button class="btn hard" onclick="startGame('hard')">TEŠKO (Sve)</button>
+        </div>
+        <div class="start-actions">
+            <button id="open-settings-btn" class="btn secondary" type="button">⚙️ Postavke</button>
+            <button id="open-help-btn" class="btn secondary" type="button">? Upute</button>
+        </div>
+    </div>
+
+    <div id="help-screen" class="settings-screen hidden" aria-hidden="true">
+        <div class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="help-title">
+            <h2 id="help-title">Kako igrati?</h2>
+            <ol class="help-list">
+                <li>Pogledaj slovo prikazano na vrhu ekrana.</li>
+                <li>Pronađi balon koji ima to slovo i dodirni ga.</li>
+                <li>Skupi što više zvjezdica! ⭐</li>
+            </ol>
+            <p class="help-note">Ako tapneš krivi balon, on će se zatresti.</p>
+            <div class="settings-actions">
+                <button id="help-close-btn" class="btn" type="button">Razumijem!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-screen" class="settings-screen hidden" aria-hidden="true">
+        <div class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+            <h2 id="settings-title">Postavke</h2>
+            <div class="settings-row">
+                <label for="settings-font-select">Font</label>
+                <select id="settings-font-select">
+                    <option value="open">OpenDyslexic</option>
+                    <option value="arial">Arial</option>
+                    <option value="comic">Comic Sans</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <label for="settings-font-size-select">Veličina fonta</label>
+                <select id="settings-font-size-select">
+                    <option value="small">Mala</option>
+                    <option value="medium">Srednja</option>
+                    <option value="large">Velika</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <label for="settings-theme-select">Paleta boja</label>
+                <select id="settings-theme-select">
+                    <option value="default">Zadano</option>
+                    <option value="daltonist">Daltonist</option>
+                    <option value="highcontrast">High contrast</option>
+                    <option value="bw">Crno-bijelo</option>
+                </select>
+            </div>
+
+            <div class="settings-actions">
+                <button id="settings-save-btn" class="btn" type="button">Spremi</button>
+                <button id="settings-cancel-btn" class="btn secondary" type="button">Natrag</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ui-bar">
+        <div id="ui-header">
+            <div id="target-container">
+                Nađi: <span id="target-letter">A</span>
+            </div>
+            <div class="ui-stats">
+                <span>Runda: <span id="round-display">1</span></span>
+                <span>⭐ <span id="current-score">0</span></span>
+            </div>
+            <div class="ui-actions">
+                <button id="open-settings-game-btn" class="settings-icon" type="button" aria-label="Otvori postavke">⚙️</button>
+                <button id="back-to-menu-btn" class="settings-icon" type="button" aria-label="Natrag na početni zaslon">🏠</button>
+            </div>
+        </div>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="round-message">Bravo! 👏</div>
+    <div id="game-area"></div>
+    <script src="script.js"></script>
+</body>
+</html>
