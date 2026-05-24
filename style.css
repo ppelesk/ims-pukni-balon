@@ -310,13 +310,15 @@ html {
 .start-actions {
   display: flex;
   gap: 12px;
-  margin-top: 15px;
+  margin-top: 36px;
   width: 80%;
   max-width: 300px;
 }
 
 .start-actions .btn {
   flex: 1;
+  font-size: 1rem;
+  padding: 10px 14px;
 }
 
 .btn {
